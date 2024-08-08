@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo con Burbujas</title>
+    <style>
+        /* General */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif; /* Fuente bonita */
+        }
+
+        /* Fondo rosa pastel */
+        #bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8bbd0; /* Rosa pastel */
+            overflow: hidden;
+        }
+
+        /* Estilo del mensaje */
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffd; /* Color pastel para el texto */
+            font-size: 3em;
+            font-weight: bolder;
+            text-align: center;
+            z-index: 1; /* Asegura que el texto esté encima de las burbujas */
+            padding: 20px;
+            animation: pulse 2s infinite; /* Animación del color del texto */
+        }
+
+        /* Estilo de las burbujas */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            z-index: 0; /* Burbujas debajo del texto */
+        }
+
+        /* Animación del color del texto */
+        @keyframes pulse {
+            0% { color: #ff66b2; }
+            50% { color: #ff99cc; }
+            100% { color: #ff66b2; }
+        }
+    </style>
+    <!-- Fuente de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="bubbles-container"></div>
+    <div class="message">
+        Espero te queden bellas esas manos, y que ese pollo te quede severo, lindaaa xd
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('bubbles-container');
+            
+            // Crear burbujas
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 50 + 20; // Tamaño aleatorio entre 20 y 70px
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.bottom = `-${size}px`;
+                bubble.style.opacity = Math.random();
+                container.appendChild(bubble);
+
+                // Animación de las burbujas
+                bubble.animate([
+                    { transform: `translateY(0)` },
+                    { transform: `translateY(-100vh)` }
+                ], {
+                    duration: Math.random() * 3000 + 5000,
+                    iterations: Infinity
+                });
+
+                // Eliminar burbujas después de animar
+                setTimeout(() => {
+                    container.removeChild(bubble);
+                }, 10000); // El tiempo debe ser mayor que la duración de la animación
+            }
+
+            // Crear múltiples burbujas
+            setInterval(createBubble, 300); // Crear burbujas cada 300ms
+        });
+    </script>
+</body>
+</html>
+
+
